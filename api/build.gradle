@@ -1,0 +1,38 @@
+apply plugin: 'java'
+apply plugin: CustomPlugin.class
+
+compileJava {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+class CustomPlugin implements Plugin<Project> {
+    @Override
+    void apply(Project project) {
+        println "Clevertec Task 02"
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':core')
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+jar {
+    manifest.attributes(
+            'Main-Class': 'ru.clevertec.api.App',
+            'Class-Path': configurations.compileClasspath.collect { it.getName() }.join(' ')
+    )
+    from {
+        configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+test {
+    useJUnitPlatform()
+}

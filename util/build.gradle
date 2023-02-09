@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+}
+
+group = 'ru.clevertec.util'
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.apache.commons:commons-lang3:3.10'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+jar {
+    archiveBaseName = 'utils'
+    archiveVersion = '1.3.5'
+    manifest.attributes 'Class-Path': configurations.compileClasspath.collect { it.getName() }.join(' ')
+    from {
+        configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
