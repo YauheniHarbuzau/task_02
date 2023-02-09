@@ -3,3 +3,5 @@
 util/build
 core/build
 api/build
+buildSrc/.gradle
+buildSrc/build

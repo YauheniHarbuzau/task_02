@@ -1,16 +1,9 @@
 apply plugin: 'java'
-apply plugin: CustomPlugin.class
+apply plugin: ru.clevertec.plugin.CustomPlugin
 
 compileJava {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
-}
-
-class CustomPlugin implements Plugin<Project> {
-    @Override
-    void apply(Project project) {
-        println "Clevertec Task 02"
-    }
 }
 
 repositories {
